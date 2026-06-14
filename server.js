@@ -19,8 +19,14 @@ app.use('/api', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: error.message, details: error.response?.data });
+    res.status(500).json({ 
+      error: error.message, 
+      details: error.response?.data 
+    });
   }
 });
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
-app.listen(process.env.PORT || 3000, () => console.log('AstroMarga proxy running'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('AstroMarga proxy running on port ' + PORT);
+});
